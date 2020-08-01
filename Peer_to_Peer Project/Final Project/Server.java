@@ -24,7 +24,7 @@ public class Server extends Thread{
 
     public Server(int port) throws IOException{
         socket = new ServerSocket(port);
-        // socket.setSoTimeout(10000);
+        socket.setSoTimeout(50000);
     }
 
     public void run(){
@@ -39,10 +39,11 @@ public class Server extends Thread{
                 System.out.println(input.readUTF());
                 
                 DataOutputStream out = new DataOutputStream(server.getOutputStream());
-                
                 out.writeUTF("Thank you for connecting to " + server.getLocalSocketAddress()
                      + "\nGoodbye!");
+                
                 server.close();
+                socket.close();
                 
             } catch (SocketTimeoutException s) {
                 System.out.println("Socket timed out!");
@@ -51,12 +52,26 @@ public class Server extends Thread{
                 e.printStackTrace();
                 break;
             }
-
         }
-
     }
 
-    public static void main(String[] args) {
+    // public static void main(String[] args) {
+    //     // int port = Integer.parseInt(args[0]);
+    //     int port = 6600;
+    //     try {
+    //         System.out.println("Server started");
+    //         Thread thread = new Server(port);
+    //         thread.start();
+    //     } catch (Exception e) {
+    //         e.printStackTrace();
+    //     }
+    // }
+
+
+    // tryin different approach incase the exec doesnt work
+    // this one works too!
+
+    public void startServer(){
         // int port = Integer.parseInt(args[0]);
         int port = 6601;
         try {
