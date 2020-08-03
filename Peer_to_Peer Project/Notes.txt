@@ -1,0 +1,17 @@
+ * How to compile this new one:
+1. compile all files
+2. run -> java Peer
+
+Extra:
+ - if the port is already in use (error), we needa clear up that port to reuse it :/
+ - fix this:
+ https://stackoverflow.com/questions/39632667/how-do-i-kill-the-process-currently-using-a-port-on-localhost-in-windows
+
+--------------------------------------------------------------------------------------------------------------------
+note:
+- client/server into a p2p
+- added a chord class
+- server side works
+
+currently, working on the client side!
+

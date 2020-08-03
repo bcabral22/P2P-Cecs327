@@ -18,6 +18,9 @@ public class Chord {
     private String existingNodeAddress = null;
     private int existingNodePort;
 
+    private Server server;
+    // private Client client; 
+
     private Node secondPredecessor;
     private Node firstPredecessor;
     private Node firstSuccessor;
@@ -29,6 +32,7 @@ public class Chord {
     private Semaphore semaphore = new Semaphore(1);
 
 
+    // creating a new chord ring at the start of the program
     public Chord(String address, int port){
         this.address = address;
         this.port = port;
@@ -39,12 +43,21 @@ public class Chord {
         this.initializeNode();
         this.initializeSuccessors();
 
-        new Thread(new NodeListener(this)).start();
-        new Thread(new NodeStabilizer(this)).start();
-        new Thread(new Heart(this)).start();
+        // new Thread(new NodeListener(this)).start();
+        // server.start();
+        // server.startServer(this);
+        try {
+            server = new Server(this);
+            server.startServer();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        // new Thread(new NodeStabilizer(this)).start();
+        // new Thread(new Heart(this)).start();         // checking its neighbours
     }
 
-
+    // put a new node inside the already created network
     public Chord(String address, String port, String existingNodeAddress, String existingNodePort) {
         this.address = address;
         this.port = Integer.valueOf(port);
@@ -60,12 +73,20 @@ public class Chord {
         this.initializeNode();
         this.initializeSuccessors();
 
-        new Thread(new NodeListener(this)).start();
-        new Thread(new NodeStabilizer(this)).start();
-        new Thread(new Heart(this)).start();
+        // new Thread(new NodeListener(this)).start();
+        // server.startServer();
+        try {
+            server = new Server(this);
+            server.startServer();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        // new Thread(new NodeStabilizer(this)).start();
+        // new Thread(new Heart(this)).start();           // checking its neighbours
     }
 
-    
+
     private void initializeNode(){
         if (this.existingNodeAddress == null) {
             for (int i = 0; i < 32; i++) {
