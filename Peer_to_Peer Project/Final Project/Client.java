@@ -16,6 +16,7 @@ public class Client {
       try {
          System.out.println("Connecting to server " + serverName + " on port " + port);
          Socket client = new Socket(serverName, port);
+         client.setSoTimeout(70000);
          System.out.println("Connection successful to " + client.getRemoteSocketAddress());
          
          OutputStream outToServer = client.getOutputStream();

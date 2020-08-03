@@ -1,12 +1,6 @@
 
 /*
- This class is a peer/node to establish a p2p
- meaning each peer can either act as a client or a server.
-
-
-
- Notes:
-
+    This one is useless 
 
 */
 
@@ -15,10 +9,6 @@ import java.util.Scanner;
 import java.io.*;
 
 public class Peer{
-
-    String HOST = "";
-    int PORT = 6601;
-
 
     public static void main(String[] args) {
         

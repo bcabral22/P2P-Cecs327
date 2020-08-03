@@ -1,0 +1,45 @@
+ * How to compile this new one:
+so we tryna make a peer act both as a client or a server.
+
+compile all first:
+        javac Server.java
+	javac Client.java
+	javac Peer.java
+
+Now u only needa run Peer class
+	java Peer
+		Send file? Yes = client
+			   No = server
+
+Note: 
+ - if the port is already in use (error), we needa clear up that port to reuse it :/
+
+--------------------------------------------------------------------------------------------------------------------
+// Copied this client-server model frm link below
+// https://www.tutorialspoint.com/java/java_networking.htm#:~:text=A%20client%20program%20creates%20a,and%20reading%20from%20the%20socket.
+
+
+To-do/Steps:
+1. We have a client/server program. 
+
+2. Next our goal: to convert this client/server into a p2p type, meaning that each peer
+can act as both client and a server somehow???? 
+
+
+3. Implement the network overlay
+4. DHT (with chord??)
+
+--------------------------------------------------------------------------------------------------------------------
+What I am thinking so far??
+-> So, lets say we have 3 peers in a network. Then, we have
+one peer that will be requesting a file. This peer will be
+a client (4 sure). Now the question is who is the server?
+the server will be whoever has the requested file.
+So, we check the other two peers to see which one has the
+requested file. One of them should have the file. And that
+one will be our server. Now, we connect them and send the file.
+
+But the ques is who are connected in that network?
+and how do we know that??
+-> 
+
