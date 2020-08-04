@@ -6,18 +6,18 @@ import java.io.Serializable;
 public class Node implements Serializable{
 
     private int id; // node id
-    private String ipaddr;
+    private String address;
     private int port;
 
     public Node(String add, int port){
-        this.ipaddr = add;
+        this.address = add;
         this.port = port;
     }
     
 
     public Node(int i, String ip, int p){
         this.id = i;
-        this.ipaddr = ip;
+        this.address = ip;
         this.port = p;
     }
 
@@ -25,8 +25,8 @@ public class Node implements Serializable{
         return this.id;
     }
 
-    public String getIPaddr(){
-        return this.ipaddr;
+    public String getAddress(){
+        return this.address;
     }
 
     public int getPort(){
@@ -37,9 +37,9 @@ public class Node implements Serializable{
         this.id = id;
     }
 
-    public void setIpaddr(String ipaddr){
-        this.ipaddr = ipaddr;
-    }
+    // public void setaddress(String ipaddr){
+    //     this.ipaddr = ipaddr;
+    // }
 
     public void setPort(int port){
         this.port = port;
@@ -50,6 +50,3 @@ public class Node implements Serializable{
     }
 
 }
-
-
-// 41

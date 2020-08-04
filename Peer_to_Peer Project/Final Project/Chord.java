@@ -21,8 +21,9 @@ public class Chord {
     private Server server;
     // private Client client; 
 
-    private Node secondPredecessor;
     private Node firstPredecessor;
+    private Node secondPredecessor;
+ 
     private Node firstSuccessor;
     private Node secondSuccessor;
 
@@ -53,12 +54,12 @@ public class Chord {
             e.printStackTrace();
         }
 
-        // new Thread(new NodeStabilizer(this)).start();
+        // new Thread(new Stabilize(this)).start();
         // new Thread(new Heart(this)).start();         // checking its neighbours
     }
 
     // put a new node inside the already created network
-    public Chord(String address, String port, String existingNodeAddress, String existingNodePort) {
+    public Chord(String address, String port, String existingNodeAddress, int existingNodePort) {
         this.address = address;
         this.port = Integer.valueOf(port);
 
@@ -73,16 +74,24 @@ public class Chord {
         this.initializeNode();
         this.initializeSuccessors();
 
-        // new Thread(new NodeListener(this)).start();
+        // server = new Server(this);
         // server.startServer();
-        try {
-            server = new Server(this);
-            server.startServer();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
 
-        // new Thread(new NodeStabilizer(this)).start();
+        // try {
+        //     // server = new Server(this);
+        //     // server.startServer();
+        //     Client client = new Client(this);
+        //     client.startClient();
+
+        // } catch (IOException e) {
+        //     e.printStackTrace();
+        // }
+
+
+        Client client = new Client(this, existingNodeAddress, existingNodePort);
+        client.startClient();
+
+        // new Thread(new Stabilize(this)).start();
         // new Thread(new Heart(this)).start();           // checking its neighbours
     }
 
@@ -118,7 +127,7 @@ public class Chord {
                     String[] serverResponseFragments = serverResponse.split(":", 2);
                     String[] addressFragments = serverResponseFragments[1].split(":");
 
-                    // Add response finger to table
+                    // Add response node to table
                     this.fingers.put(i, new Node(addressFragments[0], Integer.valueOf(addressFragments[1])));
 
                     System.out.println("Received: " + serverResponse);
@@ -138,20 +147,21 @@ public class Chord {
     private void initializeSuccessors(){
         this.firstSuccessor = this.fingers.get(0);
         this.secondSuccessor = this.fingers.get(1);
+
         this.firstPredecessor = new Node(this.address, this.port);
         this.secondPredecessor = new Node(this.address, this.port);
 
         // Notify the first successor that we are the new predecessor, provided we do not open a connection to ourselves
-        if (!this.address.equals(this.firstSuccessor.getIPaddr()) || (this.port != this.firstSuccessor.getPort())) {
+        if (!this.address.equals(this.firstSuccessor.getAddress()) || (this.port != this.firstSuccessor.getPort())) {
             try {
-                Socket socket = new Socket(this.firstSuccessor.getIPaddr(), this.firstSuccessor.getPort());
+                Socket socket = new Socket(this.firstSuccessor.getAddress(), this.firstSuccessor.getPort());
 
                 // Open writer to successor node
                 PrintWriter socketWriter = new PrintWriter(socket.getOutputStream(), true);
 
                 // Tell successor that this node is its new predecessor
                 socketWriter.println("NEW PREDECESSOR:" + this.getAddress() + ":" + this.getPort());
-                System.out.println("Sent: " + "NEW_PREDECESSOR :" + this.getAddress() + ":" + this.getPort() + " to " + this.firstSuccessor.getIPaddr() + ":" + this.firstSuccessor.getPort());
+                System.out.println("Sent: " + "NEW_PREDECESSOR :" + this.getAddress() + ":" + this.getPort() + " to " + this.firstSuccessor.getAddress() + ":" + this.firstSuccessor.getPort());
 
                 // Close connections
                 socketWriter.close();
@@ -216,8 +226,6 @@ public class Chord {
     }
 
 
-
-
     public Semaphore getSemaphore() {
         return semaphore;
     }
@@ -233,7 +241,38 @@ public class Chord {
     public void release() {
         this.semaphore.release();
     }
-
-
     
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    // public Semaphore getSemaphore() {
+    //     return semaphore;
+    // }
+
+    // public void acquire() {
+    //     try {
+    //         this.semaphore.acquire();
+    //     } catch (InterruptedException e) {
+    //         e.printStackTrace();
+    //     }
+    // }
+
+    // public void release() {
+    //     this.semaphore.release();
+    // }

@@ -15,6 +15,13 @@ public class Peer{
     public static void main(String[] args) {
 
         Chord myChord = new Chord("localhost", 6601);
+        // Chord myClient = new Chord("localhost", "5000", "localhost", 6601 );
+
+
+
+
+        // Chord myClient2 = new Chord("localhost", "6000", "localhost", "6601" );
+
     }
     
 }

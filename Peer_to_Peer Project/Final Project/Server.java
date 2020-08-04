@@ -38,7 +38,7 @@ public class Server extends Thread{
 
                 server = socket.accept();
             
-
+/*
                 // when a client gets accepted then do below stuff......
                 System.out.println("Connected to " + server.getRemoteSocketAddress() + "\n");
 
@@ -52,9 +52,9 @@ public class Server extends Thread{
                 out.writeUTF("Thank you for connecting to " + server.getLocalSocketAddress()
                      + "\nGoodbye!");
                 
-                // server.close();
+                server.close();
                 // socket.close(); // this socket needs to be closed somewhere? for the port to reopen
-                
+*/
             } catch (SocketTimeoutException s) {
                 System.out.println("Socket timed out!");
                 break;
@@ -64,7 +64,7 @@ public class Server extends Thread{
             } finally{
                 try {
                     server.close();
-                    socket.close();
+                    // socket.close();
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
