@@ -1,42 +1,49 @@
 
-// Copied this client-server model frm link below
 // https://www.tutorialspoint.com/java/java_networking.htm#:~:text=A%20client%20program%20creates%20a,and%20reading%20from%20the%20socket.
-// *** initial compile: java Client localhost 6066 (changed)
 
 import java.net.*;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.HashSet;
 import java.util.concurrent.ConcurrentLinkedQueue;
 import java.io.*;
 
-public class Server extends Thread{
+public class Server extends Thread {
 
     private ServerSocket socket;
     protected Socket server;
-    private Node node; 
+    private Node node;
     private Chord chord;
-
 
     // private ArrayList<SocketAddress> listofclient;
     public static Collection<Socket> activeClient = new ConcurrentLinkedQueue<>();
 
-
-    public Server(Chord c) throws IOException{
+    public Server(Chord c) throws IOException {
         // this.node = n;
         this.chord = c;
-        socket = new ServerSocket(this.chord.getPort());
-        socket.setSoTimeout(70000);
+        // socket = new ServerSocket(this.chord.getPort());
+        // socket.setSoTimeout(70000);
         // listofclient = new ArrayList<>();
     }
 
-    public void run(){
+    public void run() {
+
+        try {
+            socket = new ServerSocket(this.chord.getPort());
+            socket.setSoTimeout(70000);
+        } catch (IOException e1) {
+            e1.printStackTrace();
+        }
+        
         while(true){
             try {
                 System.out.println("Waiting for client on port "
-                     + socket.getLocalPort() + "....");
+                    + socket.getLocalPort() + "....");
 
                 server = socket.accept();
+                new Thread(new Client(this.chord, server)).start();
+
+                // Socket clientSocket = socket.accept();
+                // new Thread(new Client(this.chord, clientSocket)).start();
             
 /*
                 // when a client gets accepted then do below stuff......
@@ -55,13 +62,16 @@ public class Server extends Thread{
                 server.close();
                 // socket.close(); // this socket needs to be closed somewhere? for the port to reopen
 */
-            } catch (SocketTimeoutException s) {
+            } 
+
+            catch (SocketTimeoutException s) {
                 System.out.println("Socket timed out!");
                 break;
             } catch (IOException e) {
                 e.printStackTrace();
                 break;
-            } finally{
+            } 
+            finally{
                 try {
                     server.close();
                     // socket.close();
@@ -77,7 +87,6 @@ public class Server extends Thread{
         // int port = 6601;
 
         try {
-            System.out.println("Server started");
             Thread thread = this;
             thread.start();
         } catch (Exception e) {

@@ -5,6 +5,10 @@ import java.io.Serializable;
 
 public class Node implements Serializable{
 
+    /**
+     *
+     */
+    private static final long serialVersionUID = 1L;
     private int id; // node id
     private String address;
     private int port;

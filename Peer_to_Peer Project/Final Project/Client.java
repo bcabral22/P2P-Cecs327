@@ -8,56 +8,61 @@ public class Client extends Thread {
 
    private Chord chord;
    private Socket socketClient;
-   private String existingAddress;
-   private int existingPort;
+   // private String existingAddress;
+   // private int existingPort;
 
-   public Client(Chord clientChord, String existingAddress, int existingPort) {
+   // public Client(Chord clientChord, String existingAddress, int existingPort) {
+   //    this.chord = clientChord;
+   //    this.existingAddress = existingAddress;
+   //    this.existingPort = existingPort;
+   //    try {
+   //       socketClient = new Socket(this.existingAddress, this.existingPort);
+   //    } catch (IOException e) {
+   //       e.printStackTrace();
+   //    }
+   // }
+
+
+   public Client(Chord clientChord, Socket socket) {
       this.chord = clientChord;
-      this.existingAddress = existingAddress;
-      this.existingPort = existingPort;
-      try {
-         socketClient = new Socket(this.existingAddress, this.existingPort);
-      } catch (IOException e) {
-         e.printStackTrace();
-      }
+      this.socketClient = socket;
    }
 
 
-   public void run(){
-      try {
-         System.out.println("I am a client :) ");
-         System.out.println("Connecting to server " + existingAddress + " on port " + existingPort);
-         // Socket client = new Socket(serverName, port);
-         socketClient.setSoTimeout(70000);
-         System.out.println("Connection successful to " + socketClient.getRemoteSocketAddress());
-         
-         OutputStream outToServer = socketClient.getOutputStream();
-         DataOutputStream out = new DataOutputStream(outToServer);
-         
-         out.writeUTF("Hello from " + socketClient.getLocalSocketAddress());
-         InputStream inFromServer = socketClient.getInputStream();
-         DataInputStream in = new DataInputStream(inFromServer);
-         
-         System.out.println("Server says " + in.readUTF());
-         socketClient.close();
+   public void run() {
+      System.out.println("Connecting to server " + socketClient.getRemoteSocketAddress());
+      System.out.println("I'm in a client right now :) ");
 
-      } catch (IOException e) {
-         e.printStackTrace();
-      }
+      // Socket client = new Socket(serverName, port);
+      // socketClient.setSoTimeout(70000);
+
+      System.out.println("Connection successful to " + socketClient.getRemoteSocketAddress());
+
+       
+         // OutputStream outToServer = socketClient.getOutputStream();
+         // DataOutputStream out = new DataOutputStream(outToServer);
+         
+         // out.writeUTF("Hello from " + socketClient.getLocalSocketAddress());
+         // InputStream inFromServer = socketClient.getInputStream();
+         // DataInputStream in = new DataInputStream(inFromServer);
+         
+         // System.out.println("Server says " + in.readUTF());
+         // socketClient.close();
       
    }
 
 
-   public void startClient(){
-      try {
-         System.out.println("Client started");
-         Thread thread = this;
-         thread.start();
-     } catch (Exception e) {
-         e.printStackTrace();
-     }
+   // public void startClient(){
+   //    try {
+   //       System.out.println("Client started");
+   //       Thread thread = this;
+   //       thread.start();
+   //   } catch (Exception e) {
+   //       e.printStackTrace();
+   //   }
 
-   }
+   // }
+
 
 }
 
@@ -65,9 +70,13 @@ public class Client extends Thread {
 
 
 
-   // original
 
 
+
+
+
+
+   // original ---------------------------------------------------------------------------------
 
    // public static void main(String [] args) {
    //    // String serverName = args[0];
