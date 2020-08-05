@@ -12,25 +12,23 @@ public class Client extends Thread {
    // private int existingPort;
 
    // public Client(Chord clientChord, String existingAddress, int existingPort) {
-   //    this.chord = clientChord;
-   //    this.existingAddress = existingAddress;
-   //    this.existingPort = existingPort;
-   //    try {
-   //       socketClient = new Socket(this.existingAddress, this.existingPort);
-   //    } catch (IOException e) {
-   //       e.printStackTrace();
-   //    }
+   // this.chord = clientChord;
+   // this.existingAddress = existingAddress;
+   // this.existingPort = existingPort;
+   // try {
+   // socketClient = new Socket(this.existingAddress, this.existingPort);
+   // } catch (IOException e) {
+   // e.printStackTrace();
    // }
-
+   // }
 
    public Client(Chord clientChord, Socket socket) {
       this.chord = clientChord;
       this.socketClient = socket;
    }
 
-
    public void run() {
-      System.out.println("Connecting to server " + socketClient.getRemoteSocketAddress());
+      System.out.println("Connecting to server " + chord.getAddress() + " port = " + chord.getPort());
       System.out.println("I'm in a client right now :) ");
 
       // Socket client = new Socket(serverName, port);
@@ -38,16 +36,19 @@ public class Client extends Thread {
 
       System.out.println("Connection successful to " + socketClient.getRemoteSocketAddress());
 
-       
-         // OutputStream outToServer = socketClient.getOutputStream();
-         // DataOutputStream out = new DataOutputStream(outToServer);
-         
-         // out.writeUTF("Hello from " + socketClient.getLocalSocketAddress());
-         // InputStream inFromServer = socketClient.getInputStream();
-         // DataInputStream in = new DataInputStream(inFromServer);
-         
-         // System.out.println("Server says " + in.readUTF());
-         // socketClient.close();
+      try {
+         OutputStream outToServer = socketClient.getOutputStream();
+         DataOutputStream out = new DataOutputStream(outToServer);
+         out.writeUTF("Hello from " + socketClient.getLocalSocketAddress());
+         InputStream inFromServer = socketClient.getInputStream();
+         DataInputStream in = new DataInputStream(inFromServer);
+         System.out.println("Server says " + in.readUTF());
+         socketClient.close();
+
+      } catch (IOException e) {
+         e.printStackTrace();
+      }
+
       
    }
 

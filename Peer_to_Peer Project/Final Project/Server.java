@@ -2,20 +2,21 @@
 // https://www.tutorialspoint.com/java/java_networking.htm#:~:text=A%20client%20program%20creates%20a,and%20reading%20from%20the%20socket.
 
 import java.net.*;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.concurrent.ConcurrentLinkedQueue;
+// import java.util.ArrayList;
+// import java.util.Collection;
+// import java.util.concurrent.ConcurrentLinkedQueue;
 import java.io.*;
 
 public class Server extends Thread {
 
     private ServerSocket socket;
-    protected Socket server;
+
     private Node node;
+
     private Chord chord;
 
     // private ArrayList<SocketAddress> listofclient;
-    public static Collection<Socket> activeClient = new ConcurrentLinkedQueue<>();
+    // public static Collection<Socket> activeClient = new ConcurrentLinkedQueue<>();
 
     public Server(Chord c) throws IOException {
         // this.node = n;
@@ -39,29 +40,30 @@ public class Server extends Thread {
                 System.out.println("Waiting for client on port "
                     + socket.getLocalPort() + "....");
 
-                server = socket.accept();
-                new Thread(new Client(this.chord, server)).start();
+                // server = socket.accept();
+                // new Thread(new Client(this.chord, server)).start();
 
-                // Socket clientSocket = socket.accept();
+                Socket clientSocket = socket.accept();
                 // new Thread(new Client(this.chord, clientSocket)).start();
+
+
+                new Thread(new Test(this.chord, clientSocket)).start();
             
-/*
+
                 // when a client gets accepted then do below stuff......
-                System.out.println("Connected to " + server.getRemoteSocketAddress() + "\n");
+                System.out.println("Okayy Now Connected to " + clientSocket.getRemoteSocketAddress() + "\n");
 
-                // listofclient.add(server.getRemoteSocketAddress());      // add the client address into an arraylist?? 
-                activeClient.add(server);
 
-                // this will get replaced?
-                DataInputStream input = new DataInputStream(server.getInputStream());
+                DataInputStream input = new DataInputStream(clientSocket.getInputStream());
                 System.out.println(input.readUTF());
-                DataOutputStream out = new DataOutputStream(server.getOutputStream());
-                out.writeUTF("Thank you for connecting to " + server.getLocalSocketAddress()
+                DataOutputStream out = new DataOutputStream(clientSocket.getOutputStream());
+                out.writeUTF("Thank you for connecting to " + clientSocket.getLocalSocketAddress()
                      + "\nGoodbye!");
-                
-                server.close();
+                clientSocket.close();
+
+
                 // socket.close(); // this socket needs to be closed somewhere? for the port to reopen
-*/
+
             } 
 
             catch (SocketTimeoutException s) {
@@ -73,7 +75,7 @@ public class Server extends Thread {
             } 
             finally{
                 try {
-                    server.close();
+                    // clientSocket.close();
                     // socket.close();
                 } catch (Exception e) {
                     e.printStackTrace();

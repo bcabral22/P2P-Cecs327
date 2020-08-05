@@ -40,12 +40,12 @@ public class Stabilize extends Thread {
                     socketReader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
 
                     // Submit a request for the predecessor
-                    socketWriter.println("REQUEST_PREDECESSOR :" + this.chord.getId() + " asking " + this.chord.getFirstSuccessor().getPort());
-                    System.out.println("Sent: " + "REQUEST_PREDECESSOR:" + this.chord.getId() + " asking " + this.chord.getFirstSuccessor().getPort());
+                    // socketWriter.println("REQUEST_PREDECESSOR :" + this.chord.getId() + " asking " + this.chord.getFirstSuccessor().getPort());
+                    // System.out.println("Sent: " + "REQUEST_PREDECESSOR:" + this.chord.getId() + " asking " + this.chord.getFirstSuccessor().getPort());
 
                     // Read response from chord
                     String serverResponse = socketReader.readLine();
-                    System.out.println("Received: " + serverResponse);
+                    // System.out.println("Received: " + serverResponse);
 
                     // Parse server response for address and port
                     String[] predecessorFragments = serverResponse.split(":");
@@ -81,8 +81,8 @@ public class Stabilize extends Thread {
                         socketReader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
 
                         // Tell successor that this node is its new predecessor
-                        socketWriter.println("NEW_PREDECESSOR: " + this.chord.getAddress() + ":" + this.chord.getPort());
-                        System.out.println("Sent: " + "NEW_PREDECESSOR: " + this.chord.getAddress() + ":" + this.chord.getPort());
+                        // socketWriter.println("NEW_PREDECESSOR: " + this.chord.getAddress() + ":" + this.chord.getPort());
+                        // System.out.println("Sent: " + "NEW_PREDECESSOR: " + this.chord.getAddress() + ":" + this.chord.getPort());
                     }
 
                     BigInteger bigQuery = BigInteger.valueOf(2L);
@@ -111,7 +111,7 @@ public class Stabilize extends Thread {
                         this.chord.setFirstSuccessor(this.chord.getFingers().get(0));
                         this.chord.setSecondSuccessor(this.chord.getFingers().get(1));
 
-                        System.out.println("Received: " + serverResponse);
+                        // System.out.println("Received: " + serverResponse);
                     }
 
                     this.chord.release();
@@ -140,8 +140,8 @@ public class Stabilize extends Thread {
                         bigResult = bigResult.add(bigSelfId);
 
                         // Send query to chord
-                        socketWriter.println("FIND_NODE :" + bigResult.longValue());
-                        System.out.println("Sent: " + " FIND_NODE:" + bigResult.longValue());
+                        // socketWriter.println("FIND_NODE :" + bigResult.longValue());
+                        // System.out.println("Sent: " + " FIND_NODE:" + bigResult.longValue());
 
                         // Read response from chord
                         String serverResponse = socketReader.readLine();

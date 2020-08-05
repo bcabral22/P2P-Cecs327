@@ -105,8 +105,8 @@ public class Chord {
                     BigInteger bigResult = bigQuery.pow(i);
                     bigResult = bigResult.add(bigSelfId);
 
-                    socketWriter.println("Find Node:" + bigResult.longValue());
-                    System.out.println("Sent: " + "Find Node:" + bigResult.longValue());
+                    // socketWriter.println("Find Node:" + bigResult.longValue());
+                    // System.out.println("Sent: " + "Find Node:" + bigResult.longValue());
 
                     String serverResponse = socketReader.readLine();
 
@@ -115,7 +115,7 @@ public class Chord {
 
                     this.fingers.put(i, new Node(addressFragments[0], Integer.valueOf(addressFragments[1])));
 
-                    System.out.println("Received: " + serverResponse);
+                    // System.out.println("Received: " + serverResponse);
                 }
 
                 socketWriter.close();
@@ -142,8 +142,8 @@ public class Chord {
 
                 PrintWriter socketWriter = new PrintWriter(socket.getOutputStream(), true);
 
-                socketWriter.println("NEW PREDECESSOR:" + this.getAddress() + ":" + this.getPort());
-                System.out.println("Sent: " + "NEW_PREDECESSOR :" + this.getAddress() + ":" + this.getPort() + " to " + this.firstSuccessor.getAddress() + ":" + this.firstSuccessor.getPort());
+                // socketWriter.println("NEW PREDECESSOR:" + this.getAddress() + ":" + this.getPort());
+                // System.out.println("Sent: " + "NEW_PREDECESSOR :" + this.getAddress() + ":" + this.getPort() + " to " + this.firstSuccessor.getAddress() + ":" + this.firstSuccessor.getPort());
 
                 socketWriter.close();
                 socket.close();
