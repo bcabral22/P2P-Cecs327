@@ -120,19 +120,11 @@ public class ChordNode {
 
 	// public void printFingerTable(PrintStream out) {
 	public void printFingerTable() {
-		// out.println("=======================================================");
-		// out.println("FingerTable: " + this);
-		// out.println("-------------------------------------------------------");
-		// out.println("Predecessor: " + predecessor);
-		// out.println("Successor: " + successor);
-		// out.println("-------------------------------------------------------");
-
 		for (int i = 0; i < Hash.KEY_LENGTH; i++) {
 			Finger finger = fingerTable.getFinger(i);
 			// out.println(finger.getStart() + "\t" + finger.getNode());
 			System.out.println(finger.getStart() + "\t" + finger.getNode());
 		}
-		// out.println("=======================================================");
 	}
 
 	public String getNodeId() {

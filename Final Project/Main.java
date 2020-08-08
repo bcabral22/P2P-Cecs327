@@ -1,10 +1,9 @@
 
 //192.168.254.22    6601
 
-
 import java.io.PrintStream;
 import java.net.InetAddress;
-import java.net.URL;
+import java.util.Arrays;
 import java.util.Scanner;
 
 public class Main {
@@ -34,8 +33,8 @@ public class Main {
 
 		Scanner scan = new Scanner(System.in);
 
-		PrintStream out = System.out;
-		out = new PrintStream("result.log");
+		// PrintStream out = System.out;
+		// out = new PrintStream("result.log");
 
 		String host = InetAddress.getLocalHost().getHostAddress();
 		// int port = 9000;
@@ -66,15 +65,15 @@ public class Main {
 			if (choice == 1) { // gets index out of bound error when adding more than or less than 2 nodes
 				System.out.println("Joining a network");
 
-				System.out.print("Enter IP address to connect to network: ");
-				String inputIP = scan.nextLine(); // 192.168.254.22
+				// System.out.print("Enter IP address to connect to network: ");
+				// String inputIP = scan.nextLine(); // 192.168.254.22
 
-				System.out.print("Enter the port number: ");
-				p = scan.nextLine(); // 5000 or whatever port
-				System.out.println();
+				// System.out.print("Enter the port number: ");
+				// p = scan.nextLine(); // 5000 or whatever port
+				// System.out.println();
 
-				// String inputIP = "192.168.254.22";
-				// p = "5000";
+				String inputIP = "192.168.254.22";
+				p = "9000";
 				String addr2 = inputIP + p;
 				chord.createNode(addr2);
 				System.out.println(addr2 + " has been created");
@@ -129,6 +128,10 @@ public class Main {
 
 					System.out.println("my Current Node: " + currentNode.toString());
 					System.out.println("my successor node is: " + successorNode.toString());
+
+					System.out.println("Exit program");
+
+					System.exit(0);
 
 
 		/*			// -------------------------------------------- try
@@ -187,15 +190,13 @@ public class Main {
 				}
 
 
-
-
-				
 			} else if (choice == 3) {
-				System.out.println("Start the server");
-				
+				System.out.println("Starting the server...");
+				Thread.sleep(1000);
+
 				ChordNode node = chord.getNode(0);
 				System.out.println("The first node will be acting as our server contains the file");
-				Server myServer = new Server(node);
+				Server myServer = new Server(node, chord.nodeList);
 				new Thread(myServer).start();
 
 			} else if (choice == 4) {
@@ -212,16 +213,29 @@ public class Main {
 					node2.printNeighbour();
 				}
 
-			} else if (choice == 6) {
-				System.out.println("Upload files");
+			} 
+			
+			// else if (choice == 6) {
+			// 	System.out.println("Upload files");
 
 
-			} else if (choice == 7) {
-				System.out.println("Download files");
+			// } else if (choice == 7) {
+			// 	System.out.println("Download files");
 				
-			} else if (choice == -1){
+			// } 
+			
+			else if (choice == -1){
 				System.out.println("Exit the program");
 				System.exit(0);
+
+			} else if (choice == 100){
+				// chord.nodeList;
+				System.out.println(Arrays.toString(chord.nodeList.toArray()));
+
+				// for(ChordNode c: chord.nodeList) {
+				// 	System.out.println(c);
+				// }
+
 			}
 			else
 				System.out.println("Pick from the given options!");
