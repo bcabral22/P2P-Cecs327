@@ -13,6 +13,9 @@ public class Main {
 	public static final int KEY_LENGTH = 160;
 	public static final int NUM_OF_NODES = 2;
 
+	private static boolean isAllowedLeave = false;
+	private static ChordKey currentKey = null;
+
 	// public static int NUM_OF_NODES = 0;
 
 	public static void menuOptions() {
@@ -48,10 +51,10 @@ public class Main {
 		String addr = host + p;
 		chord.createNode(addr);
 		// NUM_OF_NODES++;
-
+		currentKey = chord.getNode(0).getNodeKey();		// this 0 should change to NUM_OF_NODES cuz we require the current position of the server node
 
 		// lets start with a menu
-		while(true){
+		while (true) {
 			menuOptions();
 
 			int choice = scan.nextInt();
@@ -59,22 +62,24 @@ public class Main {
 
 			System.out.println("Choose: " + choice);
 
-			if (choice == 1) {		// gets index out of bound error when adding more than or less than 2 nodes
+			if (choice == 1) { // gets index out of bound error when adding more than or less than 2 nodes
 				System.out.println("Joining a network");
 
-				System.out.print("Enter IP address to connect to network: " );
-				String inputIP = scan.nextLine();	// 192.168.254.22 
+				System.out.print("Enter IP address to connect to network: ");
+				String inputIP = scan.nextLine(); // 192.168.254.22
 
 				System.out.print("Enter the port number: ");
-				p = scan.nextLine();			// 5000
+				p = scan.nextLine(); // 5000 or whatever port
 				System.out.println();
 
+				// String inputIP = "192.168.254.22";
+				// p = "5000";
 				String addr2 = inputIP + p;
 				chord.createNode(addr2);
-				System.out.println( addr2 + " has been created");
+				System.out.println(addr2 + " has been created");
 				System.out.println("ChordNode ID: " + host + " port: " + p);
 				// NUM_OF_NODES++;
-				
+
 				// out.println(NUM_OF_NODES + " nodes are created.");
 				System.out.println(NUM_OF_NODES + " nodes are created.");
 
@@ -95,6 +100,7 @@ public class Main {
 						preceding.stabilize();
 					}
 				}
+
 				// out.println("Chord ring is established.");
 				System.out.println("Chord ring is created");
 
@@ -105,10 +111,83 @@ public class Main {
 				// out.println("Finger Tables are fixed.");
 				System.out.println("Finger Tables are fixed.");
 
+				isAllowedLeave = true;
+
 	
 			} else if (choice == 2) {
 				System.out.println("Leave the network");
-				System.out.println("This needs to be implemented!!!!");
+
+				if(isAllowedLeave == false){
+					System.out.println("Cannot leave the network");
+					System.out.println("Another node needs to join the network for you to leave the network");
+				} else{
+					// tell the successor to change its predecessor
+					ChordNode currentNode = chord.getNode(0); 
+
+					ChordNode successorNode = currentNode.getSuccessor();
+
+					System.out.println("my Current Node: " + currentNode.toString());
+					System.out.println("my successor node is: " + successorNode.toString());
+
+
+		/*			// -------------------------------------------- try
+
+					// currentNode.removeFinger(0);
+					System.out.println("set the successor of the successor node to null");
+					successorNode.setSuccessor(null);
+
+					System.out.println("removing the node from the list and the fingertable");
+					chord.removeNodeList(currentNode);
+
+					for (int i = 0; i < NUM_OF_NODES; i++) {
+						ChordNode node = chord.getSortedNode(i);
+						// out.println(node);
+						System.out.println(node);
+					}
+	
+					for (int i = 1; i < NUM_OF_NODES; i++) {
+						ChordNode node = chord.getNode(i);
+						node.join(chord.getNode(0));
+						ChordNode preceding = node.getSuccessor().getPredecessor();
+						node.stabilize();
+						if (preceding == null) {
+							node.getSuccessor().stabilize();
+						} else {
+							preceding.stabilize();
+						}
+					}
+	
+					// out.println("Chord ring is established.");
+					System.out.println("Chord ring is created");
+	
+					for (int i = 0; i < NUM_OF_NODES; i++) {
+						ChordNode node = chord.getNode(i);
+						node.fixFingers();
+					}
+					// out.println("Finger Tables are fixed.");
+					System.out.println("Finger Tables are fixed.");
+
+
+					System.out.println("Printing Predecessor & successors ");
+					for (int i = 0; i < NUM_OF_NODES; i++) {
+						ChordNode node2 = chord.getSortedNode(i);
+						node2.printNeighbour();
+					}
+
+
+					// -------------------------------------------- try  */
+
+
+
+
+
+					// send the file to the next node
+					// delete the node
+				}
+
+
+
+
 				
 			} else if (choice == 3) {
 				System.out.println("Start the server");
@@ -122,7 +201,7 @@ public class Main {
 				System.out.println("Printing Finger table");
 				for (int i = 0; i < NUM_OF_NODES; i++) {
 					ChordNode node1 = chord.getSortedNode(i);
-					node1.printFingerTable(out);
+					node1.printFingerTable();
 				} 
 
 			} else if (choice == 5) {

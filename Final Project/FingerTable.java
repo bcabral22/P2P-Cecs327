@@ -16,4 +16,26 @@ public class FingerTable {
 		return fingers[i];
 	}
 
+	/*public void removeFinger(int i){
+		// for(int j = fingers.length - 1 ; j >= 0 ; j--){
+		// 	if(j == i){
+		// 		this.fingers[i] = fingers[j+1]; 
+		// 	}
+		// }
+
+		for (int j = 0; j < fingers.length; j++) {
+			// if (j == i){
+			// 	for (int z = j; z < fingers.length - 1; z++) {
+			// 		fingers[z] = fingers[z+1];
+			// 	}
+			// }
+
+			fingers[i] = null;
+			
+		}
+	}*/
+
+
+
+
 }

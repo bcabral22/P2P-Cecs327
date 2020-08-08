@@ -1,5 +1,6 @@
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.SortedMap;
 import java.util.TreeMap;
@@ -25,5 +26,25 @@ public class Chord {
 			sortedKeyArray = sortedNodeMap.keySet().toArray();
 		}
 		return (ChordNode) sortedNodeMap.get(sortedKeyArray[i]);
+	}
+
+	public void removeNodeList(ChordNode chord){
+		Iterator<ChordNode> iterator = nodeList.iterator();
+
+		chord.removeFinger(0);
+
+		while(iterator.hasNext()){
+			ChordNode remove = iterator.next();
+			if(remove.equals(chord)){
+				iterator.remove();
+			}
+		}
+		
+
+		// for (ChordNode chordNode : nodeList) {
+		// 	if (chordNode.equals(chord)){
+
+		// 	}
+		// }
 	}
 }

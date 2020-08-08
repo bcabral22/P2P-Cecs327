@@ -88,11 +88,26 @@ public class ChordNode {
 		}
 	}
 
+
+
+	// ttry
+	public void removeFinger(int x){
+		for (int i = 0; i < Hash.KEY_LENGTH; i++) {
+			if (i == x){
+				Finger finger = fingerTable.getFinger(x);
+				finger = null;
+			}
+		}
+	}
+
+
+	
+
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
 		sb.append("ChordNode[");
-		sb.append("ID=" + nodeId);
-		sb.append(", KEY=" + nodeKey);
+		sb.append("ID = " + nodeId);
+		sb.append(", KEY = " + nodeKey);
 		sb.append("]");
 		return sb.toString(); 
 	}
@@ -103,20 +118,21 @@ public class ChordNode {
 		System.out.println("Successor: " + successor + "\n");
 	}
 
-	public void printFingerTable(PrintStream out) {
-		out.println("=======================================================");
-		out.println("FingerTable: " + this);
-		out.println("-------------------------------------------------------");
-		out.println("Predecessor: " + predecessor);
-		out.println("Successor: " + successor);
-		out.println("-------------------------------------------------------");
+	// public void printFingerTable(PrintStream out) {
+	public void printFingerTable() {
+		// out.println("=======================================================");
+		// out.println("FingerTable: " + this);
+		// out.println("-------------------------------------------------------");
+		// out.println("Predecessor: " + predecessor);
+		// out.println("Successor: " + successor);
+		// out.println("-------------------------------------------------------");
 
 		for (int i = 0; i < Hash.KEY_LENGTH; i++) {
 			Finger finger = fingerTable.getFinger(i);
-			out.println(finger.getStart() + "\t" + finger.getNode());
+			// out.println(finger.getStart() + "\t" + finger.getNode());
 			System.out.println(finger.getStart() + "\t" + finger.getNode());
 		}
-		out.println("=======================================================");
+		// out.println("=======================================================");
 	}
 
 	public String getNodeId() {
