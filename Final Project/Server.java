@@ -12,8 +12,8 @@ import java.net.Socket;
 
 public class Server implements Runnable {
 
-
-    protected int serverPort = 6601;
+//Changed this from 6601 to free port
+    protected int serverPort = 6604;
     protected ServerSocket serverSocket = null;
     protected boolean isStopped    = false;
     protected Thread runningThread= null;
@@ -38,7 +38,8 @@ public class Server implements Runnable {
 
                 // send a file
                 System.out.println("Accepted connection : " + clientSocket);
-                File transferFile = new File ("Document.doc");
+                //changed type for png
+                File transferFile = new File ("cool.png");
                 byte [] bytearray  = new byte [(int)transferFile.length()];
                 FileInputStream fin = new FileInputStream(transferFile);
                 BufferedInputStream bin = new BufferedInputStream(fin);

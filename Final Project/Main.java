@@ -45,7 +45,8 @@ public class Main {
 
 		Chord chord = new Chord();
 
-		String p = "6601";
+		//change port from 6601 to 66004
+		String p = "6604";
 		System.out.println("First Node is auto generated to start the chord.");
 		System.out.println("ChordNode ID: " + host + " port: " + p);
 		String addr = host + p;
