@@ -36,6 +36,8 @@ public class Main {
 		// PrintStream out = System.out;
 		// out = new PrintStream("result.log");
 
+		//making this the host ip
+		//veifiy your ip
 		String host = InetAddress.getLocalHost().getHostAddress();
 		// int port = 9000;
 
@@ -49,6 +51,7 @@ public class Main {
 		System.out.println("First Node is auto generated to start the chord.");
 		System.out.println("ChordNode ID: " + host + " port: " + p);
 		String addr = host + p;
+		//host IP
 		chord.createNode(addr);
 		// NUM_OF_NODES++;
 		currentKey = chord.getNode(0).getNodeKey();		// this 0 should change to NUM_OF_NODES cuz we require the current position of the server node
@@ -72,12 +75,15 @@ public class Main {
 				// p = scan.nextLine(); // 5000 or whatever port
 				// System.out.println();
 
-				String inputIP = "192.168.254.22";
+				
+				//change this to the laptop ip
+				//modify this 
+				String inputIP = "192.168.86.35";
 				p = "9000";
 				String addr2 = inputIP + p;
 				chord.createNode(addr2);
 				System.out.println(addr2 + " has been created");
-				System.out.println("ChordNode ID: " + host + " port: " + p);
+				System.out.println("ChordNode ID: " + "192.168.86.35" + " port: " + p);
 				// NUM_OF_NODES++;
 
 				// out.println(NUM_OF_NODES + " nodes are created.");
