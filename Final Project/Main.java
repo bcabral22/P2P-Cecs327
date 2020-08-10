@@ -41,8 +41,8 @@ public class Main {
 		String host = InetAddress.getLocalHost().getHostAddress();
 		// int port = 9000;
 
-		Hash.setFunction(HASH_FUNCTION);
-		Hash.setKeyLength(KEY_LENGTH);
+		SHAHasher.setHashFunction(HASH_FUNCTION);
+		SHAHasher.setSize(KEY_LENGTH);
 
 		Chord chord = new Chord();
 

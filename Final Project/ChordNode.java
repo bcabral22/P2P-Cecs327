@@ -40,8 +40,8 @@ public class ChordNode {
 	}
 
 	private ChordNode closestPrecedingNode(ChordKey key) {
-		for (int i = Hash.KEY_LENGTH - 1; i >= 0; i--) {
-			Finger finger = fingerTable.getFinger(i);
+		for (int i = SHAHasher.size - 1; i >= 0; i--) {
+			Node finger = fingerTable.getFinger(i);
 			ChordKey fingerKey = finger.getNode().getNodeKey();
 			if (fingerKey.isBetween(this.getNodeKey(), key)) {
 				return finger.getNode();
@@ -81,9 +81,9 @@ public class ChordNode {
 	}
 
 	public void fixFingers() {
-		for (int i = 0; i < Hash.KEY_LENGTH; i++) {
-			Finger finger = fingerTable.getFinger(i);
-			ChordKey key = finger.getStart();
+		for (int i = 0; i < SHAHasher.size; i++) {
+			Node finger = fingerTable.getFinger(i);
+			ChordKey key = finger.getKey();
 			finger.setNode(findSuccessor(key));
 		}
 	}
@@ -92,9 +92,9 @@ public class ChordNode {
 
 	// ttry
 	public void removeFinger(int x){
-		for (int i = 0; i < Hash.KEY_LENGTH; i++) {
+		for (int i = 0; i < SHAHasher.size; i++) {
 			if (i == x){
-				Finger finger = fingerTable.getFinger(x);
+				Node finger = fingerTable.getFinger(x);
 				finger = null;
 			}
 		}
@@ -120,10 +120,10 @@ public class ChordNode {
 
 	// public void printFingerTable(PrintStream out) {
 	public void printFingerTable() {
-		for (int i = 0; i < Hash.KEY_LENGTH; i++) {
-			Finger finger = fingerTable.getFinger(i);
+		for (int i = 0; i < SHAHasher.size; i++) {
+			Node finger = fingerTable.getFinger(i);
 			// out.println(finger.getStart() + "\t" + finger.getNode());
-			System.out.println(finger.getStart() + "\t" + finger.getNode());
+			System.out.println(finger.getKey() + "\t" + finger.getNode());
 		}
 	}
 

@@ -15,7 +15,7 @@ public class ChordKey implements Comparable {
 
 	public ChordKey(String identifier) {
 		this.identifier = identifier;
-		this.key = Hash.hash(identifier);
+		this.key = SHAHasher.hash(identifier);
 	}
 
 	public boolean isBetween(ChordKey fromKey, ChordKey toKey) {
@@ -35,7 +35,7 @@ public class ChordKey implements Comparable {
 		byte[] newKey = new byte[key.length];
 		System.arraycopy(key, 0, newKey, 0, key.length);
 		int carry = 0;
-		for (int i = (Hash.KEY_LENGTH - 1) / 8; i >= 0; i--) {
+		for (int i = (SHAHasher.size - 1) / 8; i >= 0; i--) {
 			int value = key[i] & 0xff;
 			value += (1 << (index % 8)) + carry;
 			newKey[i] = (byte) value;

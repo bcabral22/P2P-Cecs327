@@ -2,17 +2,17 @@
 
 public class FingerTable {
 
-	Finger[] fingers;
+	Node[] fingers;
 
 	public FingerTable(ChordNode node) {
-		this.fingers = new Finger[Hash.KEY_LENGTH];
+		this.fingers = new Node[SHAHasher.size];
 		for (int i = 0; i < fingers.length; i++) {
 			ChordKey start = node.getNodeKey().createStartKey(i);
-			fingers[i] = new Finger(start, node);
+			fingers[i] = new Node(start, node);
 		}
 	}
 
-	public Finger getFinger(int i) {
+	public Node getFinger(int i) {
 		return fingers[i];
 	}
 
