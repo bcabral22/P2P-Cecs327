@@ -11,19 +11,21 @@ public class Client {
 		Scanner scan = new Scanner(System.in);
 
 
-		System.out.println("Input your IP address: ");
+		
 		// String clientAddress = scan.nextLine();
 		String clientAddress = InetAddress.getLocalHost().getHostAddress();
 				//"192.168.86.35";
+		System.out.println("client your IP address is: ");
 		System.out.println(clientAddress);
-		System.out.println("Enter your port number");
+		//System.out.println("Enter your port number");
 		// String clientPort = scan.nextLine();
 		String clientPort = "9000";
 
 
 		// ask for the server its tryna connect with
-		System.out.println("Enter IP address of the server you want to connect to: ");
+		System.out.println("Your Host IP is: ");
 		String host = "192.168.86.220";
+		System.out.println(host);
 		int filesize = 1022386;
 		int bytesRead;
 		int currentTot = 0;
