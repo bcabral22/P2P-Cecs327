@@ -1,4 +1,7 @@
-
+//created by:
+//Brian Cabral 
+//Shoraj Manandhar
+//Cecs327
 
 
 public class Node{

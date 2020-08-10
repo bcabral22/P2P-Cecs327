@@ -1,11 +1,15 @@
-
-//192.168.254.22    6601
+//created by:
+//Brian Cabral 
+//Shoraj Manandhar
+//Cecs327
 
 import java.io.PrintStream;
 import java.net.InetAddress;
 import java.util.Arrays;
 import java.util.Scanner;
-
+//main class will run the program
+//here the user can add peeers to the network
+//start the sever 
 public class Main {
 
 	public static final String HASH_FUNCTION = "SHA-1";
@@ -16,7 +20,7 @@ public class Main {
 	private static ChordKey currentKey = null;
 
 	// public static int NUM_OF_NODES = 0;
-
+//menu options 
 	public static void menuOptions() {
 		System.out.println();
 		System.out.println("1. Join network");
@@ -24,13 +28,13 @@ public class Main {
 		System.out.println("3. Start server");
 		System.out.println("4. Show Finger table");
 		System.out.println("5. Show Predecessor & successors ");
-		System.out.println("6. Upload files");
-		System.out.println("7. Download files");
+	//	System.out.println("6. Upload files");
+	//	System.out.println("7. Download files");
 		System.out.println("-1. To exit");
 	}
 
 	public static void main(String[] args) throws Exception {
-
+//user input
 		Scanner scan = new Scanner(System.in);
 
 		// PrintStream out = System.out;
@@ -44,7 +48,7 @@ public class Main {
 		SHAHasher.setHashFunction(HASH_FUNCTION);
 		SHAHasher.setSize(KEY_LENGTH);
 
-		Chord chord = new Chord();
+		DHTChord chord = new DHTChord();
 
 		//change port from 6601 to 66004
 		String p = "6604";
@@ -78,7 +82,8 @@ public class Main {
 				
 				//change this to the laptop ip
 				//modify this 
-				String inputIP = "192.168.86.35";
+				System.out.println("Enter IP:");
+				String inputIP = scan.nextLine();
 				p = "9000";
 				String addr2 = inputIP + p;
 				chord.createNode(addr2);
@@ -118,7 +123,7 @@ public class Main {
 				System.out.println("Finger Tables are fixed.");
 
 				isAllowedLeave = true;
-
+//2nd choice to drop a node from the network. not woking
 	
 			} else if (choice == 2) {
 				System.out.println("Leave the network");
@@ -195,23 +200,23 @@ public class Main {
 					// delete the node
 				}
 
-
+//start the server
 			} else if (choice == 3) {
 				System.out.println("Starting the server...");
 				Thread.sleep(1000);
 
 				ChordNode node = chord.getNode(0);
 				System.out.println("The first node will be acting as our server contains the file");
-				Server myServer = new Server(node, chord.nodeList);
+				Server myServer = new Server(node, chord.DHTList);
 				new Thread(myServer).start();
-
+//print the finger table
 			} else if (choice == 4) {
 				System.out.println("Printing Finger table");
 				for (int i = 0; i < NUM_OF_NODES; i++) {
 					ChordNode node1 = chord.getSortedNode(i);
 					node1.printFingerTable();
 				} 
-
+//pprint predecessor and succerors
 			} else if (choice == 5) {
 				System.out.println("Printing Predecessor & successors ");
 				for (int i = 0; i < NUM_OF_NODES; i++) {
@@ -236,7 +241,7 @@ public class Main {
 
 			} else if (choice == 100){
 				// chord.nodeList;
-				System.out.println(Arrays.toString(chord.nodeList.toArray()));
+				System.out.println(Arrays.toString(chord.DHTList.toArray()));
 
 				// for(ChordNode c: chord.nodeList) {
 				// 	System.out.println(c);

@@ -1,9 +1,14 @@
-
+//created by:
+//Brian Cabral 
+//Shoraj Manandhar
+//Cecs327
 
 public class FingerTable {
 
-	Node[] fingers;
+	// An array which takes in Node objects and puts it in the finger table
+	private Node[] fingers;
 
+	// Constructor: add the Node/Finger to the fingertable everytime the class is called
 	public FingerTable(ChordNode node) {
 		this.fingers = new Node[SHAHasher.size];
 		for (int i = 0; i < fingers.length; i++) {
@@ -12,6 +17,7 @@ public class FingerTable {
 		}
 	}
 
+	// get the node position in the finger table
 	public Node getFinger(int i) {
 		return fingers[i];
 	}

@@ -1,3 +1,7 @@
+//created by:
+//Brian Cabral 
+//Shoraj Manandhar
+//Cecs327
 
 import java.util.*;
 import java.util.zip.CRC32;

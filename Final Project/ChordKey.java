@@ -1,3 +1,7 @@
+//created by:
+//Brian Cabral 
+//Shoraj Manandhar
+//Cecs327 
 
 import java.util.ArrayList;
 import java.util.List;
@@ -5,32 +9,42 @@ import java.util.List;
 
 public class ChordKey implements Comparable {
 
-	String identifier;
+	// Initialize the variables
+	private String value;
+	private byte[] key;
 
-	byte[] key;
-
+	// Constructor to initialize the key
 	public ChordKey(byte[] key) {
 		this.key = key;
 	}
 
-	public ChordKey(String identifier) {
-		this.identifier = identifier;
-		this.key = SHAHasher.hash(identifier);
+	// Constructor to initialize the value
+	public ChordKey(String value) {
+		this.value = value;
+		this.key = SHAHasher.hash(value);
 	}
 
-	public boolean isBetween(ChordKey fromKey, ChordKey toKey) {
-		if (fromKey.compareTo(toKey) < 0) {
-			if (this.compareTo(fromKey) > 0 && this.compareTo(toKey) < 0) {
-				return true;
-			}
-		} else if (fromKey.compareTo(toKey) > 0) {
-			if (this.compareTo(toKey) < 0 || this.compareTo(fromKey) > 0) {
-				return true;
-			}
-		}
-		return false;
+	// Get the value
+	public String getIdentifier() {
+		return value;
 	}
 
+	// Set the value
+	public void setIdentifier(String value) {
+		this.value = value;
+	}
+
+	// Get the key
+	public byte[] getKey() {
+		return key;
+	}
+
+	// Set the key
+	public void setKey(byte[] key) {
+		this.key = key;
+	}
+
+	// get the node key and hash it and put it in a finger table
 	public ChordKey createStartKey(int index) {
 		byte[] newKey = new byte[key.length];
 		System.arraycopy(key, 0, newKey, 0, key.length);
@@ -47,6 +61,21 @@ public class ChordKey implements Comparable {
 		return new ChordKey(newKey);
 	}
 
+	// compare the hashed key and see where it fits in the finger table
+	public boolean isBetween(ChordKey fromKey, ChordKey toKey) {
+		if (fromKey.compareTo(toKey) < 0) {
+			if (this.compareTo(fromKey) > 0 && this.compareTo(toKey) < 0) {
+				return true;
+			}
+		} else if (fromKey.compareTo(toKey) > 0) {
+			if (this.compareTo(toKey) < 0 || this.compareTo(fromKey) > 0) {
+				return true;
+			}
+		}
+		return false;
+	}
+
+	// compares two objects, two hashed keys in our case
 	public int compareTo(Object obj) {
 		ChordKey targetKey = (ChordKey) obj;
 		for (int i = 0; i < key.length; i++) {
@@ -59,6 +88,7 @@ public class ChordKey implements Comparable {
 		return 0;
 	}
 
+	// toString method for the hashed key
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
 		if (key.length > 4) {
@@ -73,22 +103,6 @@ public class ChordKey implements Comparable {
 			sb.append(Long.toString(n));
 		}
 		return sb.substring(0, sb.length() - 1).toString();
-	}
-
-	public String getIdentifier() {
-		return identifier;
-	}
-
-	public void setIdentifier(String identifier) {
-		this.identifier = identifier;
-	}
-
-	public byte[] getKey() {
-		return key;
-	}
-
-	public void setKey(byte[] key) {
-		this.key = key;
 	}
 
 }

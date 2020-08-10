@@ -13,10 +13,9 @@ public class Client {
 
 		System.out.println("Input your IP address: ");
 		// String clientAddress = scan.nextLine();
-		//change this to laptop IP
-		//modify this 
-		String clientAddress = "192.168.86.35";
-
+		String clientAddress = InetAddress.getLocalHost().getHostAddress();
+				//"192.168.86.35";
+		System.out.println(clientAddress);
 		System.out.println("Enter your port number");
 		// String clientPort = scan.nextLine();
 		String clientPort = "9000";
@@ -24,10 +23,6 @@ public class Client {
 
 		// ask for the server its tryna connect with
 		System.out.println("Enter IP address of the server you want to connect to: ");
-		//String host = InetAddress.getLocalHost().getHostAddress();
-		
-		//change this to host ip
-		//modify this 
 		String host = "192.168.86.220";
 		int filesize = 1022386;
 		int bytesRead;

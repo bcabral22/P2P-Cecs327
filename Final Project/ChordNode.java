@@ -1,13 +1,20 @@
-
+//created by:
+//Brian Cabral 
+//Shoraj Manandhar
+//Cecs327
 import java.io.PrintStream;
 
+//this class will make the nodes for the chord
+// this will create the successor and the prodecessor
 public class ChordNode {
 
-	String nodeId;
-	ChordKey nodeKey;
-	ChordNode predecessor;
-	ChordNode successor;
-	FingerTable fingerTable;
+	
+	//string to keep track of the node id
+	private String nodeId;
+	private ChordKey nodeKey;
+	private ChordNode predecessor;
+	private ChordNode successor;
+	private FingerTable fingerTable;
 
 	public ChordNode(String nodeId) {
 		this.nodeId = nodeId;
@@ -15,12 +22,15 @@ public class ChordNode {
 		this.fingerTable = new FingerTable(this);
 		this.create();
 	}
-
+	
+//this will find the successor. 
+//the successor the node that is the smallest identifier
 	public ChordNode findSuccessor(String identifier) {
 		ChordKey key = new ChordKey(identifier);
 		return findSuccessor(key);
 	}
 
+	//this is returning the key of the successor
 	public ChordNode findSuccessor(ChordKey key) {
 
 		if (this == successor) {
@@ -39,6 +49,7 @@ public class ChordNode {
 		}
 	}
 
+	//this will get the next precedding node
 	private ChordNode closestPrecedingNode(ChordKey key) {
 		for (int i = SHAHasher.size - 1; i >= 0; i--) {
 			Node finger = fingerTable.getFinger(i);
@@ -54,7 +65,7 @@ public class ChordNode {
 		predecessor = null;
 		successor = this;
 	}
-
+//this will let the next node join
 	public void join(ChordNode node) {
 		predecessor = null;
 		successor = node.findSuccessor(this.getNodeId());
@@ -102,16 +113,16 @@ public class ChordNode {
 
 
 	
-
+//striing that reads out the node
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
 		sb.append("ChordNode[");
 		sb.append("ID = " + nodeId);
-		sb.append(", KEY = " + nodeKey);
+		//sb.append(", KEY = " + nodeKey);
 		sb.append("]");
 		return sb.toString(); 
 	}
-
+//string that prints out prodessor and succeosr
 	public void printNeighbour(){
 		System.out.println("Node: " + this);
 		System.out.println("Predecessor: " + predecessor);
@@ -126,43 +137,43 @@ public class ChordNode {
 			System.out.println(finger.getKey() + "\t" + finger.getNode());
 		}
 	}
-
+//return the node id
 	public String getNodeId() {
 		return nodeId;
 	}
-
+//sets the node id
 	public void setNodeId(String nodeId) {
 		this.nodeId = nodeId;
 	}
-
+//gets the node key
 	public ChordKey getNodeKey() {
 		return nodeKey;
 	}
-
+//sets the node key
 	public void setNodeKey(ChordKey nodeKey) {
 		this.nodeKey = nodeKey;
 	}
-
+//reurns the predecessor node
 	public ChordNode getPredecessor() {
 		return predecessor;
 	}
-
+//sets the predecssort node 
 	public void setPredecessor(ChordNode predecessor) {
 		this.predecessor = predecessor;
 	}
-
+//gets the successor
 	public ChordNode getSuccessor() {
 		return successor;
 	}
-
+//sets the sucesssor
 	public void setSuccessor(ChordNode successor) {
 		this.successor = successor;
 	}
-
+//gets the finger table 
 	public FingerTable getFingerTable() {
 		return fingerTable;
 	}
-
+//sets the finger table 
 	public void setFingerTable(FingerTable fingerTable) {
 		this.fingerTable = fingerTable;
 	}
